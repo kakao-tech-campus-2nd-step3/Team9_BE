@@ -20,6 +20,13 @@ jobs:
           distribution: 'adopt'
           java-version: '21'
 
+      - name: Create application.yaml
+        run: |
+          mkdir -p src/main/resources
+          echo "${{ secrets.APPLICATION_YAML }}" > src/main/resources/application.yaml
+          cat src/main/resources/application.yaml
+        shell: bash
+        
       - name: Grant execute permission for Gradle Wrapper
         run: chmod +x ./gradlew
 
@@ -28,3 +35,39 @@ jobs:
 
       - name: Test with Gradle
         run: ./gradlew test
+
+      # 경로 확인
+      - name: Verify JAR file
+        run: ls build/libs/*.jar
+
+      # Docker 로그인
+      - name: Docker Login
+        uses: docker/login-action@v2.2.0
+        with: # 도커 로그인에 필요한 입력값
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      # 위 과정을 통해 후속 단계에서 이미지를 푸시할 수 있는 권한 얻음
+
+      # Docker 이미지 빌드 및 푸시
+      - name: image build and push docker images
+        uses: docker/build-push-action@v4.1.1
+        with:
+          context: . # 빌드할 도커 파일이 있는 디렉토리
+          push: true # 이미지 빌드 후 Docker Hub 에 이미지 푸시 여부
+          tags: ${{ secrets.DOCKER_USERNAME }}/katecam-backend:latest # Docker Hub 사용자 이름, 리포지토리 이름, 빌드된 이미지에 붙일 태그
+          no-cache: true # 이미지 빌드 시 캐시 사용 여부
+
+      # EC2 인스턴스에 Docker 이미지 배포
+      - name: Deploy to AWS EC2
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.AWS_HOST_IP }} # 인스턴스 IP
+          username: ${{ secrets.REMOTE_USER }} # 우분투 ID
+          key: ${{ secrets.AWS_EC2_PRIVATE_KEY }} # EC2 인스턴스 pem key
+          port: ${{ secrets.REMOTE_SSH_PORT }} # 접속 포트(생략 시 22번 기본 사용)
+          script: |
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            docker pull ${{ secrets.DOCKER_USERNAME }}/katecam-backend:latest
+            docker stop katecam-backend
+            docker rm $(docker ps --filter 'status=exited' -a -q)
+            docker run -d --name katecam-backend --network katecam-backend --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/katecam-backend:latest
