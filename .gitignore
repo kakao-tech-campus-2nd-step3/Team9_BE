@@ -1,8 +1,9 @@
-HELP.md
 .gradle
+
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
+!**/src/main/resource/application.yaml
 !**/src/test/**/build/
 
 ### STS ###
