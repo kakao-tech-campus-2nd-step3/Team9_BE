@@ -14,7 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import lombok.Builder;
 
 @Entity
 public class Product {
@@ -25,22 +25,41 @@ public class Product {
 
 	@Column(nullable = false)
 	private String name;
+
 	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private Category category;
+
 	@Column(nullable = false)
 	private String size;
+
 	@Column(nullable = false)
 	private Long price;
+
 	@Column(nullable = false)
 	private String description;
+
 	@Column(nullable = false)
 	private String preferredLocation;
 
 	@ElementCollection(targetClass = HashTag.class)
-	@CollectionTable(name = "user_hashtags")
+	@CollectionTable(name = "product_hashtags")
 	@Enumerated(EnumType.STRING)
-	private List<HashTag> hashTag;
+	private List<HashTag> hashTags;
 
 	@ManyToOne
 	private ArtistInfo artistInfo;
+
+	public Product() {}
+	@Builder
+	public Product(String name, Category category, String size, Long price, String description, String preferredLocation, List<HashTag> hashTags, ArtistInfo artistInfo) {
+		this.name = name;
+		this.category = category;
+		this.size = size;
+		this.price = price;
+		this.description = description;
+		this.preferredLocation = preferredLocation;
+		this.hashTags = hashTags;
+		this.artistInfo = artistInfo;
+	}
 }
