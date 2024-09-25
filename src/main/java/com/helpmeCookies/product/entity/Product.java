@@ -51,6 +51,7 @@ public class Product {
 	private ArtistInfo artistInfo;
 
 	public Product() {}
+
 	@Builder
 	public Product(String name, Category category, String size, Long price, String description, String preferredLocation, List<HashTag> hashTags, ArtistInfo artistInfo) {
 		this.name = name;
@@ -61,5 +62,41 @@ public class Product {
 		this.preferredLocation = preferredLocation;
 		this.hashTags = hashTags;
 		this.artistInfo = artistInfo;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public Long getPrice() {
+		return price;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public String getPreferredLocation() {
+		return preferredLocation;
+	}
+
+	public List<HashTag> getHashTags() {
+		return hashTags;
+	}
+
+	public ArtistInfo getArtistInfo() {
+		return artistInfo;
 	}
 }

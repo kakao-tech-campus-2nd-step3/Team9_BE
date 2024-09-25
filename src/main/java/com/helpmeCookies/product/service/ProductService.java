@@ -20,4 +20,7 @@ public class ProductService {
         return product;
     }
 
+    public Product find(Long productId) {
+        return productRepository.findById(productId).orElseThrow(() -> new IllegalArgumentException("유효하지 않은 id입니다"));
+    }
 }
