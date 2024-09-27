@@ -1,6 +1,10 @@
 package com.helpmeCookies.user.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.helpmeCookies.product.entity.HashTag;
 
@@ -47,9 +51,14 @@ public class User {
 	@Column(nullable = false)
 	private String address;
 
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+	@CreatedDate
+	@Column(nullable = false, updatable = false)
+	protected LocalDateTime createdAt;
+
 	// 별도의 테이블 생성. 문자열로 저장
 	@ElementCollection(targetClass = HashTag.class)
-	@CollectionTable(name = "user_hashtag")
+	@CollectionTable(name = "user_hashtags")
 	@Enumerated(EnumType.STRING)
-	private List<HashTag> hashTags;
+	private List<HashTag> hashTags; // 기본 FetchType.LAZY
 }
