@@ -99,4 +99,15 @@ public class Product {
 	public ArtistInfo getArtistInfo() {
 		return artistInfo;
 	}
+
+	public void update(String name, Category category, String size, Long price, String description, String preferredLocation, List<HashTag> hashTags, ArtistInfo artistInfo) {
+		this.name = name;
+		this.category = category;
+		this.size = size;
+		this.price = price;
+		this.description = description;
+		this.preferredLocation = preferredLocation;
+		this.hashTags = hashTags;
+		this.artistInfo = artistInfo;
+	}
 }
