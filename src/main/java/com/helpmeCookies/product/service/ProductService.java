@@ -40,4 +40,9 @@ public class ProductService {
                 productRequest.hashTags(),
                 null);
     }
+
+    public void delete(Long productId) {
+        Product product = productRepository.findById(productId).orElseThrow(() -> new IllegalArgumentException("유효하지 않은 id입니다"));
+        productRepository.deleteById(productId);
+    }
 }
