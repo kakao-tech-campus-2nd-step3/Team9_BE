@@ -16,7 +16,17 @@ logging.level:
   org.hibernate:
     orm.jdbc.bind: trace
     SQL: debug
+
 jwt:
   secret: 4099a46b-39db-4860-a61b-2ae76ea24c43
   access-token-expire-time: 1800000 # 30 minutes
   refresh-token-expire-time: 2592000000 # 30 days
+
+management:
+  endpoints:
+    web:
+      exposure: # 외부에 노출할 엔드포인트
+        include: prometheus, health, info, swagger-ui
+  metrics:
+    tags:
+      application: "katecam" # 메트릭 데이터에 태그를 추가
