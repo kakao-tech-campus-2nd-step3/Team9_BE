@@ -1,5 +1,7 @@
 package com.helpmeCookies.product.entity;
 
+import com.helpmeCookies.global.entity.BaseTimeEntity;
+import jakarta.persistence.JoinColumn;
 import java.util.List;
 
 import com.helpmeCookies.user.entity.ArtistInfo;
@@ -17,7 +19,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.Builder;
 
 @Entity
-public class Product {
+public class Product extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,6 +50,7 @@ public class Product {
 	private List<HashTag> hashTags;
 
 	@ManyToOne
+	@JoinColumn(name = "artist_info_id")
 	private ArtistInfo artistInfo;
 
 	public Product() {}
