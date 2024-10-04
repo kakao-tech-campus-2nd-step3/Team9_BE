@@ -33,16 +33,16 @@ public class LoginController {
 			.birthdate("1999-01-01")
 			.address("서울시 강남구")
 			.phone("010-1234-5678")
-			.hashTags(List.of(HashTag.autumn, HashTag.winter))
+			.hashTags(List.of(HashTag.DREAMLIKE, HashTag.VIBRANCE))
 			.build();
 		userRepository.save(user);
 		return jwtProvider.createToken(JwtUser.of(user.getId()));
 	}
 
 	// 임시 로그인 url. 로그인한 유저의 정보의 일부를 반환한다.
-	@GetMapping("/test/login")
+	@GetMapping("/login")
 	public String login(@AuthenticationPrincipal JwtUser jwtUser) {
-		User user = userRepository.findById(jwtUser.getId()).get();
+		User user = userRepository.findById(jwtUser.getId()).orElseThrow();
 		return user.getEmail();
 	}
 }

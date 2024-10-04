@@ -1,0 +1,24 @@
+spring: # test profile
+  datasource:
+    url: "jdbc:h2:mem:Code2CV"
+    username: "sa"
+    password: ""
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true # SQL 포맷팅
+        highlight_sql: true
+logging.level:
+  org.hibernate:
+    orm.jdbc.bind: trace
+    SQL: debug
+
+jwt:
+  secret: testtesttesttesttesttesttesttesttest
+  access-token-expire-time: 1800000 # 30 minutes
+  refresh-token-expire-time: 2592000000 # 30 days

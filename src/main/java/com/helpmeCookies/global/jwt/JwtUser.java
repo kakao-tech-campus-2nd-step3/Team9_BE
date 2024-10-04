@@ -1,8 +1,10 @@
 package com.helpmeCookies.global.jwt;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Builder;
@@ -12,6 +14,8 @@ import lombok.Getter;
 @Getter
 public class JwtUser implements UserDetails {
 	private Long id;
+	private String username;
+	private Collection<? extends GrantedAuthority> authorities;
 
 	public static JwtUser of(Long id) {
 		return JwtUser.builder()
@@ -20,8 +24,9 @@ public class JwtUser implements UserDetails {
 	}
 
 	@Override
+	// 임시 기본 권한을 USER로 설정
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		return List.of(new SimpleGrantedAuthority("ROLE_" + "USER"));
 	}
 
 	@Override
@@ -31,27 +36,27 @@ public class JwtUser implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return null;
+		return this.username;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return false;
+		return true;
 	}
 
 }
