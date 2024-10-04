@@ -21,61 +21,61 @@ VALUES
     ('DanielPerez', 'danielperez@example.com', '1992-05-21', '010-0011-2233', 'Yangsan, South Korea', '2024-09-23T12:00:00'),
     ('LilyHall', 'lilyhall@example.com', '1991-01-01', '010-1122-3344', 'Iksan, South Korea', '2024-09-23T12:00:00');
 -- User 1 (JohnDoe)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (1, 'autumn'), (1, 'winter');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (1, 'DREAMLIKE');
 
 -- User 2 (JaneSmith)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (2, 'autumn');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (2, 'DREAMLIKE');
 
 -- User 3 (MikeJohnson)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (3, 'winter');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (3, 'DREAMLIKE');
 
 -- User 4 (EmilyDavis)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (4, 'autumn'), (4, 'winter');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (4, 'DREAMLIKE');
 
 -- User 5 (DavidWilson)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (5, 'autumn');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (5, 'DREAMLIKE');
 
 -- User 6 (SophiaMiller)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (6, 'winter');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (6, 'DREAMLIKE');
 
 -- User 7 (JamesBrown)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (7, 'autumn');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (7, 'DREAMLIKE');
 
 -- User 8 (OliviaTaylor)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (8, 'winter');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (8, 'DREAMLIKE');
 
 -- User 9 (BenjaminLee)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (9, 'autumn');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (9, 'DREAMLIKE');
 
 -- User 10 (IsabellaClark)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (10, 'winter');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (10, 'DREAMLIKE');
 
 -- User 11 (HenryWhite)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (11, 'autumn'), (11, 'winter');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (11, 'DREAMLIKE');
 
 -- User 12 (MiaHarris)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (12, 'autumn');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (12, 'DREAMLIKE');
 
 -- User 13 (LucasMartin)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (13, 'winter');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (13, 'DREAMLIKE');
 
 -- User 14 (EllaYoung)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (14, 'autumn');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (14, 'DREAMLIKE');
 
 -- User 15 (WilliamKing)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (15, 'winter');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (15, 'DREAMLIKE');
 
 -- User 16 (AmeliaScott)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (16, 'autumn'), (16, 'winter');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (16, 'DREAMLIKE');
 
 -- User 17 (JackMoore)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (17, 'autumn');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (17, 'DREAMLIKE');
 
 -- User 18 (AvaWalker)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (18, 'winter');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (18, 'DREAMLIKE');
 
 -- User 19 (DanielPerez)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (19, 'autumn');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (19, 'DREAMLIKE');
 
 -- User 20 (LilyHall)
-INSERT INTO user_hashtags (user_id, hash_tags) VALUES (20, 'winter');
+INSERT INTO user_hashtags (user_id, hash_tags) VALUES (20, 'DREAMLIKE');
