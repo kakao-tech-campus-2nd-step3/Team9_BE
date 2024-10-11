@@ -24,16 +24,13 @@ jobs:
         run: |
           mkdir -p src/main/resources
           echo "${{ secrets.APPLICATION_YAML }}" > src/main/resources/application.yaml
-          echo "==== application.yaml contents ===="
-          cat src/main/resources/application.yaml | while read line; do echo "$line"; done
-          echo "==== End of application.yaml ===="
         shell: bash
         
       - name: Grant execute permission for Gradle Wrapper
         run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew clean build
 
       - name: Test with Gradle
         run: ./gradlew test
