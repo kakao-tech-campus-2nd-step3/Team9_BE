@@ -32,8 +32,8 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
 
-      - name: Test with Gradle
-        run: ./gradlew test
+      # - name: Test with Gradle
+      #   run: ./gradlew test
 
       # 경로 확인
       - name: Verify JAR file
