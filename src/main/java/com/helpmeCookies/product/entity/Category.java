@@ -33,7 +33,6 @@ public enum Category {
 	}
 
 	public static Category fromString(String name) {
-		System.out.println(name);
 		Category category = nameToCategoryMap.get(name);
 		if (category == null) {
 			throw new IllegalArgumentException(name + "에 해당하는 카테고리가 없습니다.");
