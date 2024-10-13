@@ -15,12 +15,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 public class JwtProvider implements InitializingBean {
-	@Value("${jwt.secret}")
-	private String secret;
-	@Value("${jwt.access-token-expire-time}")
-	private long accessTokenExpireTime;
-	@Value("${jwt.refresh-token-expire-time}")
-	private long refreshTokenExpireTime;
+	private String secret = "4099a46b-39db-4860-a61b-2ae76ea24c43";
+	private long accessTokenExpireTime = 1800000; // 30 minutes;
+	private long refreshTokenExpireTime = 259200000; // 3 days;
 	private Key secretKey;
 	private static final String ROLE = "role";
 	private static final String IS_ACCESS_TOKEN = "isAccessToken";

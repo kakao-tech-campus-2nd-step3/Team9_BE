@@ -27,5 +27,7 @@ public class ArtistInfo {
 
 	@Column(nullable = false)
 	private Long totalLikes;
+
+	@Builder.Default
 	private String about = "";
 }
