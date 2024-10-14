@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.helpmeCookies.product.dto.FileUploadResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -27,8 +28,8 @@ public class AwsS3FileUtils {
     private String bucket;
 
     //다중파일 업로드후 url 반환
-    public List<String> uploadMultiImages(List<MultipartFile> multipartFiles) {
-        List<String> fileList = new ArrayList<>();
+    public List<FileUploadResponse> uploadMultiImages(List<MultipartFile> multipartFiles) {
+        List<FileUploadResponse> fileList = new ArrayList<>();
 
         multipartFiles.forEach(file -> {
             String fileName = createFileName(file.getOriginalFilename()); //파일 이름 난수화
@@ -43,7 +44,7 @@ public class AwsS3FileUtils {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드 실패" + fileName);
             }
 
-            fileList.add(amazonS3.getUrl(bucket,fileName).toString());
+            fileList.add(new FileUploadResponse(amazonS3.getUrl(bucket,fileName).toString(),fileName));
         });
 
         return fileList;
