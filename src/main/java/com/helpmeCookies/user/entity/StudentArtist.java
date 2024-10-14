@@ -27,9 +27,6 @@ public class StudentArtist {
 	private Long id;
 
 	@Column(nullable = false)
-	private Long userId;
-
-	@Column(nullable = false)
 	private String schoolEmail;
 	@Column(nullable = false)
 	private String schoolName;
