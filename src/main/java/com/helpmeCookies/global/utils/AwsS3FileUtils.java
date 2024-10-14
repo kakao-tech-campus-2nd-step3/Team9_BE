@@ -43,7 +43,7 @@ public class AwsS3FileUtils {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드 실패" + fileName);
             }
 
-            fileList.add(fileName);
+            fileList.add(amazonS3.getUrl(bucket,fileName).toString());
         });
 
         return fileList;
