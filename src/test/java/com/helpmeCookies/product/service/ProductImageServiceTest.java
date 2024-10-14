@@ -1,6 +1,7 @@
 package com.helpmeCookies.product.service;
 
 import com.helpmeCookies.global.utils.AwsS3FileUtils;
+import com.helpmeCookies.product.dto.FileUploadResponse;
 import com.helpmeCookies.product.entity.Category;
 import com.helpmeCookies.product.entity.Product;
 import com.helpmeCookies.product.repository.ProductImageRepository;
@@ -16,6 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -56,10 +58,12 @@ class ProductImageServiceTest {
         MockMultipartFile file2 = new MockMultipartFile("test2","img2.jpg","image/jpeg","image content".getBytes());
         List<MultipartFile> files = Arrays.asList(file1,file2);
 
-        List<String> expected = Arrays.asList("url1","url2");
+        List<FileUploadResponse> expected = new ArrayList<>();
+        expected.add(new FileUploadResponse("url1","1111"));
+        expected.add(new FileUploadResponse("url2","2222"));
         when(awsS3FileUtils.uploadMultiImages(files)).thenReturn(expected);
 
-        List<String> actual = productImageService.uploadMultiFiles(1L,files);
+        List<FileUploadResponse> actual = productImageService.uploadMultiFiles(1L,files);
         assertEquals(2,actual.size(), "배열의 크기는 2여야함");
     }
 }
