@@ -43,7 +43,7 @@ public class ProductService {
 
     public void delete(Long productId) {
         Product product = productRepository.findById(productId).orElseThrow(() -> new IllegalArgumentException("유효하지 않은 id입니다"));
-        productRepository.deleteById(productId);
+        productRepository.delete(product);
         productImageRepository.deleteAllByProductId(productId);
     }
 }

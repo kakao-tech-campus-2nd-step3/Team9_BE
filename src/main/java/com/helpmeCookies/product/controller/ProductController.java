@@ -1,5 +1,6 @@
 package com.helpmeCookies.product.controller;
 
+import com.helpmeCookies.product.dto.FileUploadResponse;
 import com.helpmeCookies.product.dto.ProductImageResponse;
 import com.helpmeCookies.product.dto.ProductRequest;
 import com.helpmeCookies.product.dto.ProductResponse;
@@ -30,8 +31,8 @@ public class ProductController {
 
     @PostMapping("/{productId}/images")
     public ResponseEntity<ProductImageResponse> uploadImages(@PathVariable("productId") Long productId, List<MultipartFile> files) throws IOException {
-        List<String> urls = productImageService.uploadMultiFiles(productId,files);
-        return ResponseEntity.ok(new ProductImageResponse(urls));
+        List<FileUploadResponse> responses = productImageService.uploadMultiFiles(productId,files);
+        return ResponseEntity.ok(new ProductImageResponse(responses.stream().map(FileUploadResponse::photoUrl).toList()));
     }
 
     @GetMapping("/{productId}")
@@ -44,6 +45,12 @@ public class ProductController {
     public ResponseEntity<Void> editProductInfo(@PathVariable("productId") Long productId,
                                                            @RequestBody ProductRequest productRequest) {
         productService.edit(productId, productRequest);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{productId}/images")
+    public ResponseEntity<Void> editImages(@PathVariable("productId") Long productId, List<MultipartFile> files) throws IOException {
+        productImageService.editImages(productId, files);
         return ResponseEntity.ok().build();
     }
 
