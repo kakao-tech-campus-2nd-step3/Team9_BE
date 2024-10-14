@@ -24,9 +24,6 @@ public class BusinessArtist {
 	private Long id;
 
 	@Column(nullable = false)
-	private Long userId;
-
-	@Column(nullable = false)
 	private String businessNumber;
 
 	@Column(nullable = false)
