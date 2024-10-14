@@ -15,12 +15,14 @@ public class ProductImage {
 	private String photoUrl;
 
 	private Long productId;
+	private String uuid;
 
 	public ProductImage() {}
 
 	@Builder
-	public ProductImage(String photoUrl, Long productId) {
+	public ProductImage(String photoUrl, Long productId, String uuid) {
 		this.photoUrl = photoUrl;
 		this.productId = productId;
+		this.uuid = uuid;
 	}
 }
