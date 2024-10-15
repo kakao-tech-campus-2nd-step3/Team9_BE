@@ -3,17 +3,17 @@ package com.helpmeCookies.product.service;
 import com.helpmeCookies.product.dto.ProductRequest;
 import com.helpmeCookies.product.entity.Category;
 import com.helpmeCookies.product.entity.Product;
+import com.helpmeCookies.product.repository.ProductImageRepository;
 import com.helpmeCookies.product.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
-
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    private final ProductImageRepository productImageRepository;
 
     public Product save(ProductRequest productSaveRequest) {
         //TODO ArtistInfo 코드 병합시 수정 예정
@@ -43,6 +43,7 @@ public class ProductService {
 
     public void delete(Long productId) {
         Product product = productRepository.findById(productId).orElseThrow(() -> new IllegalArgumentException("유효하지 않은 id입니다"));
-        productRepository.deleteById(productId);
+        productRepository.delete(product);
+        productImageRepository.deleteAllByProductId(productId);
     }
 }
