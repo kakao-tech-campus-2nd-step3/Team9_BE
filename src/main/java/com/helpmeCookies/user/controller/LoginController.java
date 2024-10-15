@@ -13,6 +13,7 @@ import com.helpmeCookies.global.jwt.JwtToken;
 import com.helpmeCookies.global.jwt.JwtUser;
 import com.helpmeCookies.product.entity.HashTag;
 import com.helpmeCookies.user.entity.User;
+import com.helpmeCookies.user.entity.UserInfo;
 import com.helpmeCookies.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -27,14 +28,21 @@ public class LoginController {
 	// 임시 회원가입 url. 유저를 생성하고 jwt 토큰을 반환한다.
 	@GetMapping("/test/signup")
 	public JwtToken signup() {
-		User user = User.builder()
-			.nickname("test")
+		UserInfo userInfo = UserInfo.builder()
+			.userImageUrl("https://www.naver.com")
 			.email("test@test")
-			.birthdate("1999-01-01")
-			.address("서울시 강남구")
+			.birthdate("1995-01-01")
 			.phone("010-1234-5678")
-			.hashTags(List.of(HashTag.DREAMLIKE, HashTag.VIBRANCE))
+			.hashTags(List.of(HashTag.DREAMLIKE))
+			.name("test")
+			.nickname("test")
+			.address("서울시 강남구")
 			.build();
+
+		User user = User.builder()
+			.userInfo(userInfo)
+			.build();
+
 		userRepository.save(user);
 		return jwtProvider.createToken(JwtUser.of(user.getId()));
 	}
@@ -43,6 +51,6 @@ public class LoginController {
 	@GetMapping("/login")
 	public String login(@AuthenticationPrincipal JwtUser jwtUser) {
 		User user = userRepository.findById(jwtUser.getId()).orElseThrow();
-		return user.getEmail();
+		return user.getUserInfo().getEmail();
 	}
 }

@@ -46,7 +46,8 @@ public class WebSecurityConfig {
 					"/login", "/signup", "/", "/user",
 					"/api/auth/**",
 					"/swagger-ui/**",
-					"/actuator/**"
+					"/actuator/**",
+					"/v1/**"
 				).permitAll()
 				.anyRequest().authenticated()
 		);
