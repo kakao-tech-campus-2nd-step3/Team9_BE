@@ -5,6 +5,7 @@ import com.helpmeCookies.user.dto.StudentArtistDto;
 public record StudentArtistReq(
 	String schoolEmail,
 	String schoolName,
-	String major
+	String major,
+	String about
 ) {
 }
