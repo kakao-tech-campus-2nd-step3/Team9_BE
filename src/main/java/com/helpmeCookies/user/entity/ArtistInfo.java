@@ -23,8 +23,12 @@ public class ArtistInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	private Long userId;
+
 	private String nickname;
+
+	private String artistImageUrl;
 
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
