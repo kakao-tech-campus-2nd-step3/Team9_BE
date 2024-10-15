@@ -49,11 +49,6 @@ public class User {
 	@Column(nullable = false, updatable = false)
 	protected LocalDateTime createdAt;
 
-
-	public void createUser(UserInfo userInfo) {
-
-	}
-
 	public void updateUserInfo(UserInfo userInfo) {
 		// TODO: 유저 정보 업데이트시 유효성 검사
 		setUserInfo(userInfo);
