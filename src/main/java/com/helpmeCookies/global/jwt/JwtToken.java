@@ -6,6 +6,6 @@ import lombok.Getter;
 @Getter
 @Builder
 public class JwtToken {
-	private String accessToken;
-	private String refreshToken;
+	private final String accessToken;
+	private final String refreshToken;
 }
