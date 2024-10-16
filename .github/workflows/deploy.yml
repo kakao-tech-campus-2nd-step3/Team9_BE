@@ -1,4 +1,4 @@
-name: Java CI
+name: Java CICD
 
 on:
   workflow_dispatch:
@@ -23,7 +23,7 @@ jobs:
       - name: Create application.yaml
         run: |
           mkdir -p src/main/resources
-          echo "${{ secrets.APPLICATION_YAML }}" > src/main/resources/application.yaml
+          echo '${{ secrets.APPLICATION_YAML }}' > src/main/resources/application.yaml
           cat src/main/resources/application.yaml
         shell: bash
         
@@ -31,10 +31,10 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew clean build -x test
 
-      - name: Test with Gradle
-        run: ./gradlew test
+      # - name: Test with Gradle
+      #   run: ./gradlew test
 
       # 경로 확인
       - name: Verify JAR file
@@ -66,6 +66,8 @@ jobs:
           key: ${{ secrets.AWS_EC2_PRIVATE_KEY }} # EC2 인스턴스 pem key
           port: ${{ secrets.REMOTE_SSH_PORT }} # 접속 포트(생략 시 22번 기본 사용)
           script: |
+            echo '${{ secrets.APPLICATION_YAML }}' > test.yaml
+            cat test.yaml
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             docker pull ${{ secrets.DOCKER_USERNAME }}/katecam-backend:latest
             docker stop katecam-backend

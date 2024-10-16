@@ -17,7 +17,6 @@ import com.helpmeCookies.global.jwt.JwtToken;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("test") // 테스트용 프로파일 사용
 public class LoginE2ETest {
 
 	@Autowired

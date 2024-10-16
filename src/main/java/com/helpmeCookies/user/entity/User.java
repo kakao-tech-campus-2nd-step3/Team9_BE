@@ -12,6 +12,7 @@ import com.helpmeCookies.product.entity.HashTag;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
@@ -25,6 +26,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,29 +41,21 @@ public class User {
 	@Column(nullable = false)
 	private Long id;
 
-	@Column(nullable = false)
-	private String nickname;
-
-	@Column(nullable = false)
-	private String email;
-
-	@Column(nullable = false)
-	private String birthdate;
-
-	@Column(nullable = false)
-	private String phone;
-
-	@Column(nullable = false)
-	private String address;
+	@Embedded
+	private UserInfo userInfo;
 
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	@CreatedDate
 	@Column(nullable = false, updatable = false)
 	protected LocalDateTime createdAt;
 
-	// 별도의 테이블 생성. 문자열로 저장
-	@ElementCollection(targetClass = HashTag.class)
-	@CollectionTable(name = "user_hashtags")
-	@Enumerated(EnumType.STRING)
-	private List<HashTag> hashTags; // 기본 FetchType.LAZY
+	public void updateUserInfo(UserInfo userInfo) {
+		// TODO: 유저 정보 업데이트시 유효성 검사
+		setUserInfo(userInfo);
+	}
+
+	private User setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
+		return this;
+	}
 }
