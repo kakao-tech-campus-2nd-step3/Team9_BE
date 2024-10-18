@@ -3,6 +3,7 @@ package com.helpmeCookies.user.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.helpmeCookies.global.exception.user.ResourceNotFoundException;
 import com.helpmeCookies.user.dto.ArtistInfoDto;
 import com.helpmeCookies.user.dto.BusinessArtistDto;
 import com.helpmeCookies.user.dto.StudentArtistDto;
@@ -18,6 +19,7 @@ import com.helpmeCookies.user.repository.ArtistInfoRepository;
 import com.helpmeCookies.user.repository.BusinessArtistRepository;
 import com.helpmeCookies.user.repository.StudentArtistRepository;
 import com.helpmeCookies.user.repository.UserRepository;
+import com.sun.jdi.request.DuplicateRequestException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -66,7 +68,7 @@ public class ArtistService {
 		User user = userRepository.getReferenceById(userId);
 
 		if (artistInfoRepository.existsByUserId(userId)) {
-			throw new IllegalArgumentException("이미 등록된 아티스트입니다.");
+			throw new DuplicateRequestException("이미 등록된 아티스트입니다.");
 		}
 
 		// BusinessArtist 생성
@@ -93,22 +95,22 @@ public class ArtistService {
 	@Transactional
 	public ArtistDetailsRes getArtistDetails(Long userId) {
 		ArtistInfo artistInfo = artistInfoRepository.findByUserId(userId)
-			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아티스트입니다."));
+			.orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 아티스트입니다."));
 		ArtistInfoDto artistInfoDto = ArtistInfoDto.fromEntity(artistInfo);
 
 		switch (artistInfo.getArtistType()) {
 			case STUDENT:
 				StudentArtist studentArtist = studentArtistRepository.findByArtistInfo(artistInfo)
-					.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 학생 아티스트입니다."));
+					.orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 학생 아티스트입니다."));
 				StudentArtistDto studentArtistDto = StudentArtistDto.from(studentArtist);
 				return ArtistDetailsRes.from(artistInfoDto, studentArtistDto);
 			case BUSINESS:
 				BusinessArtist businessArtist = businessArtistRepository.findByArtistInfo(artistInfo)
-					.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사업자 아티스트입니다."));
+					.orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 사업자 아티스트입니다."));
 				BusinessArtistDto businessArtistDto = BusinessArtistDto.from(businessArtist);
 				return ArtistDetailsRes.from(artistInfoDto, businessArtistDto);
 			default:
-				throw new IllegalArgumentException("존재하지 않는 아티스트입니다.");
+				throw new ResourceNotFoundException("존재하지 않는 아티스트입니다.");
 		}
 	}
 }
