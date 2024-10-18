@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.helpmeCookies.global.exception.user.ResourceNotFoundException;
 import com.helpmeCookies.user.dto.UserDto;
-import com.helpmeCookies.user.dto.UserFollowingDto;
 import com.helpmeCookies.user.dto.UserInfoDto;
 import com.helpmeCookies.user.dto.UserTypeDto;
 import com.helpmeCookies.user.dto.response.UserFollowingRes;
@@ -18,6 +17,7 @@ import com.helpmeCookies.user.entity.UserInfo;
 import com.helpmeCookies.user.repository.ArtistInfoRepository;
 import com.helpmeCookies.user.repository.SocialRepository;
 import com.helpmeCookies.user.repository.UserRepository;
+import com.sun.jdi.request.DuplicateRequestException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,7 +32,7 @@ public class UserService {
 	@Transactional
 	public UserInfoDto getUserInfo(Long userId) {
 		UserInfo userInfo = userRepository.findById(userId)
-			.orElseThrow(() -> new ResourceNotFoundException())
+			.orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 유저입니다."))
 			.getUserInfo();
 
 		return UserInfoDto.fromEntity(userInfo);
@@ -42,7 +42,7 @@ public class UserService {
 	public UserDto updateUserInfo(UserInfoDto userInfoDto, Long userId) {
 
 		User existingUser = userRepository.findById(userId)
-			.orElseThrow(() -> new ResourceNotFoundException());
+			.orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 유저입니다."));
 
 		existingUser.updateUserInfo(userInfoDto.toEntity());
 
@@ -71,13 +71,13 @@ public class UserService {
 	@Transactional
 	public void followArtist(Long userId, Long artistId) {
 		User user = userRepository.findById(userId)
-			.orElseThrow(() -> new ResourceNotFoundException());
+			.orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 유저입니다."));
 
 		ArtistInfo artistInfo = artistInfoRepository.findByUserId(artistId)
-			.orElseThrow(() -> new ResourceNotFoundException());
+			.orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 아티스트입니다."));
 
 		if (socialRepository.existsByFollowerAndFollowing(user, artistInfo)) {
-			throw new IllegalArgumentException("이미 팔로우한 아티스트입니다.");
+			throw new DuplicateRequestException("이미 팔로우한 아티스트입니다.");
 		}
 
 		Social social = Social.builder()
@@ -91,13 +91,13 @@ public class UserService {
 	@Transactional
 	public void unfollowArtist(Long userId, Long artistId) {
 		User user = userRepository.findById(userId)
-			.orElseThrow(() -> new ResourceNotFoundException());
+			.orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 유저입니다."));
 
 		ArtistInfo artistInfo = artistInfoRepository.findByUserId(artistId)
-			.orElseThrow(() -> new ResourceNotFoundException());
+			.orElseThrow(() -> new ResourceNotFoundException("존재하지 않는 아티스트입니다."));
 
 		Social social = socialRepository.findByFollowerAndFollowing(user, artistInfo)
-			.orElseThrow(() -> new ResourceNotFoundException());
+			.orElseThrow(() -> new ResourceNotFoundException("팔로우하지 않은 아티스트입니다."));
 
 		socialRepository.delete(social);
 	}

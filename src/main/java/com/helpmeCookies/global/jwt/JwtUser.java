@@ -13,8 +13,8 @@ import lombok.Getter;
 @Builder
 @Getter
 public class JwtUser implements UserDetails {
-	private Long id;
-	private String username;
+	private final Long id;
+	private final String username;
 	private Collection<? extends GrantedAuthority> authorities;
 
 	public static JwtUser of(Long id) {
@@ -41,22 +41,22 @@ public class JwtUser implements UserDetails {
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return false;
 	}
 
 }
