@@ -29,18 +29,18 @@ public class LoginController {
 	@GetMapping("/test/signup")
 	public JwtToken signup() {
 		UserInfo userInfo = UserInfo.builder()
-			.userImageUrl("https://www.naver.com")
 			.email("test@test")
 			.birthdate("1995-01-01")
 			.phone("010-1234-5678")
 			.hashTags(List.of(HashTag.DREAMLIKE))
 			.name("test")
-			.nickname("test")
 			.address("서울시 강남구")
 			.build();
 
 		User user = User.builder()
 			.userInfo(userInfo)
+			.nickname("test")
+			.userImageUrl("test")
 			.build();
 
 		userRepository.save(user);
