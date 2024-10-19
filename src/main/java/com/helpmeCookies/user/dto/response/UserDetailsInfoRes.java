@@ -3,6 +3,7 @@ package com.helpmeCookies.user.dto.response;
 import java.util.List;
 
 import com.helpmeCookies.product.entity.HashTag;
+import com.helpmeCookies.user.dto.UserDto;
 import com.helpmeCookies.user.dto.UserInfoDto;
 
 import lombok.Builder;
@@ -18,16 +19,16 @@ public record UserDetailsInfoRes(
 	String address,
 	List<HashTag> hashTags
 ) {
-	public static UserDetailsInfoRes fromDto(UserInfoDto userInfoDto) {
+	public static UserDetailsInfoRes fromDto(UserDto userDto) {
 		return UserDetailsInfoRes.builder()
-			.name(userInfoDto.name())
-			.userImageUrl(userInfoDto.userImageUrl())
-			.nickname(userInfoDto.nickname())
-			.email(userInfoDto.email())
-			.birthdate(userInfoDto.birthdate())
-			.phone(userInfoDto.phone())
-			.address(userInfoDto.address())
-			.hashTags(userInfoDto.hashTags())
+			.name(userDto.userInfo().name())
+			.userImageUrl(userDto.userImageUrl())
+			.nickname(userDto.nickname())
+			.email(userDto.userInfo().email())
+			.birthdate(userDto.userInfo().birthdate())
+			.phone(userDto.userInfo().phone())
+			.address(userDto.userInfo().address())
+			.hashTags(userDto.userInfo().hashTags())
 			.build();
 	}
 }

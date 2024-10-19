@@ -9,12 +9,16 @@ import com.helpmeCookies.user.entity.User;
 public record UserDto(
 	Long id,
 	UserInfoDto userInfo,
+	String userImageUrl,
+	String nickname,
 	LocalDateTime createdAt
 ) {
 	public static UserDto fromEntity(User user) {
 		return new UserDto(
 			user.getId(),
 			UserInfoDto.fromEntity(user.getUserInfo()),
+			user.getUserImageUrl(),
+			user.getNickname(),
 			user.getCreatedAt()
 		);
 	}

@@ -41,6 +41,10 @@ public class User {
 	@Column(nullable = false)
 	private Long id;
 
+	private String nickname;
+
+	private String userImageUrl;
+
 	@Embedded
 	private UserInfo userInfo;
 

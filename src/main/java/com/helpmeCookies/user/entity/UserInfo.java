@@ -25,10 +25,6 @@ public class UserInfo {
 
 	private String name;
 
-	private String nickname;
-
-	private String userImageUrl;
-
 	private String email;
 
 	private String birthdate;
