@@ -3,6 +3,7 @@ package com.helpmeCookies.user.dto.response;
 import java.util.List;
 
 import com.helpmeCookies.product.entity.HashTag;
+import com.helpmeCookies.user.dto.UserDto;
 import com.helpmeCookies.user.dto.UserInfoDto;
 
 public record UserCommonInfoRes(
@@ -10,11 +11,11 @@ public record UserCommonInfoRes(
 	List<HashTag> hashTags,
 	String userImageUrl
 ) {
-	public static UserCommonInfoRes fromDto(UserInfoDto userInfoDto) {
+	public static UserCommonInfoRes fromDto(UserDto userDto) {
 		return new UserCommonInfoRes(
-			userInfoDto.nickname(),
-			userInfoDto.hashTags(),
-			userInfoDto.userImageUrl()
+			userDto.userInfo().name(),
+			userDto.userInfo().hashTags(),
+			userDto.userImageUrl()
 		);
 	}
 

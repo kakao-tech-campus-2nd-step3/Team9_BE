@@ -22,8 +22,6 @@ public record UserInfoReq(
 			nickname,
 			email,
 			birthdate,
-			phone,
-			address,
 			hashTags
 		);
 	}
